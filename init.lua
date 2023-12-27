@@ -1,26 +1,10 @@
+require("remap")
+
 --[[
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
-
-Kickstart.nvim is *not* a distribution.
-
-Kickstart.nvim is a template for your own configuration.
-  The goal is that you can read every line of code, top-to-bottom, understand
-  what your configuration is doing, and modify it to suit your needs.
-
-  Once you've done that, you should start exploring, configuring and tinkering to
-  explore Neovim!
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example:
-  - https://learnxinyminutes.com/docs/lua/
-
-
-  And then you can explore or search through `:help lua-guide`
-  - https://neovim.io/doc/user/lua-guide.html
-
 
 Kickstart Guide:
 
@@ -38,7 +22,6 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now :)
 --]]
 
--- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
@@ -311,23 +294,10 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = 'Back to file explorer' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = 'Back to file explorer' })
-vim.keymap.set("i", "jj", "<ESC>")
-
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', '<C-u>', '<C-u>zz')
-
--- Insert mode test
-vim.keymap.set('i', '<c-l>', '<Right>') -- Right
-vim.keymap.set('i', '<c-h>', '<Left>')  -- Left
-vim.keymap.set('i', '<c-k>', '<Up>')    -- Up
-vim.keymap.set('i', '<c-j>', '<Down>')  -- Down
-vim.keymap.set('i', '<c-w>', '<C-o>w')  -- Next word
-vim.keymap.set('i', '<c-b>', '<C-o>b')  -- Prev word
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
