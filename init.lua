@@ -1,14 +1,19 @@
 require("config.lazy")
 
-vim.cmd [[hi @function.builtin.lua guifg=orange]]
-
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
+-- vim.cmd [[hi @function.builtin.lua guifg=orange]]
+vim.cmd.colorscheme "kanagawa-wave"
+-- vim.cmd.colorscheme "kanagawa-dragon"
+-- vim.cmd.colorscheme "melange"
+-- vim.cmd.colorscheme "gruvbox"
 
 vim.g.mapleader = " "
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 vim.o.confirm = true
 
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
 vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.clipboard = "unnamedplus"
@@ -16,6 +21,24 @@ vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
+vim.opt.scrolloff = 8
+vim.opt.colorcolumn = "100"
+
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+vim.keymap.set("x", "<leader>p", "\"_dP")
+-- vim.keymap.set("n", "<leader>d", "\"_d")
+-- vim.keymap.set("v", "<leader>d"d "\"_d")
+-- vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+vim.keymap.set("n", "Q", "<nop>")
 
 vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>")
 vim.keymap.set("n", "<leader>x", ":.lua<CR>")
@@ -26,15 +49,15 @@ vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
 vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
 vim.keymap.set("i", "jj", "<Esc>")
 
-vim.api.nvim_set_keymap('i', '"', '""<Left>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', "'", "''<Left>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '(', '()<Left>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '[', '[]<Left>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '{', '{}<Left>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '{<CR>', '{<CR>}<ESC>O', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '{;<CR>', '{<CR>};<ESC>O', { noremap = true, silent = true })
 
--- local job_id = 0
+-- vim.api.nvim_set_keymap('i', '"', '""<Left>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', "'", "''<Left>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '(', '()<Left>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '[', '[]<Left>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '{', '{}<Left>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '{<CR>', '{<CR>}<ESC>O', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '{;<CR>', '{<CR>};<ESC>O', { noremap = true, silent = true })
+
 vim.keymap.set("n", "<space>st", function()
     vim.cmd.vnew()
     vim.cmd.term()
@@ -42,8 +65,6 @@ vim.keymap.set("n", "<space>st", function()
     vim.api.nvim_win_set_height(0, 15)
     vim.api.nvim_command("startinsert")
     -- vim.cmd("startinsert")
-    -- job_id = vim.bo.channel
-    -- vim.fn.chansend(job_id, { "tree\r\n" })
 end)
 
 vim.api.nvim_create_autocmd("TextYankPost", {

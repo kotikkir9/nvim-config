@@ -3,6 +3,8 @@ return {
         "neovim/nvim-lspconfig",
         dependencies = {
             "saghen/blink.cmp",
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
             {
                 "folke/lazydev.nvim",
                 ft = "lua", -- only load on lua files

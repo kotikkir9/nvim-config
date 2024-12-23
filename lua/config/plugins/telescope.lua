@@ -3,22 +3,28 @@ return {
     tag = '0.1.8',
     dependencies = {
         'nvim-lua/plenary.nvim',
+        "debugloop/telescope-undo.nvim",
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     },
     config = function()
-        require('telescope').setup {
+        local telescope = require("telescope")
+
+        telescope.setup {
             pickers = {
                 find_files = {
                     -- theme = 'ivy'
                 }
             },
             extensions = {
-                fzf = {}
+                fzf = {},
+                undo = {},
             }
         }
 
-        require('telescope').load_extension('fzf')
+        telescope.load_extension('fzf')
+        telescope.load_extension('undo')
 
+        vim.keymap.set('n', '<space>u', "<cmd>Telescope undo<CR>")
         vim.keymap.set('n', '<space>fh', require('telescope.builtin').help_tags)
         vim.keymap.set('n', '<space>ff', require('telescope.builtin').find_files)
         vim.keymap.set('n', '<space>fb', require('telescope.builtin').buffers)

@@ -25,13 +25,32 @@ return {
     config = function()
         local bufferline = require("bufferline")
 
+        local buffer_command = function(command)
+            -- local type = vim.bo.buftype
 
-        vim.keymap.set("n", "<leader>n", "<cmd>bnext<CR>")
-        vim.keymap.set("n", "<leader>p", "<cmd>bprev<CR>")
+            -- if type == "nofile" then
+            --     return
+            -- end
+
+            vim.cmd(command)
+        end
+
+        vim.keymap.set("n", "<leader>n", function() buffer_command("bnext") end)
+        vim.keymap.set("n", "<leader>p", function() buffer_command("bprev") end)
+
         vim.keymap.set("n", "<leader>dd", function()
             if vim.bo.buftype == "terminal" then
                 vim.cmd("bd!")
             else
+                -- local buffers = vim.api.nvim_list_bufs()
+                -- local current = vim.api.nvim_get_current_buf()
+                --
+                -- for _, buf in ipairs(buffers) do
+                --     if buf ~= current and vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buftype ~= "nofile" then
+                --         vim.api.nvim_set_current_buf(buf) -- Switch to the next buffer
+                --     end
+                -- end
+                -- vim.cmd("bd " .. current)
                 vim.cmd("bd")
             end
         end)
