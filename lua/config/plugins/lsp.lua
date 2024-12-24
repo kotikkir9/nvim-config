@@ -38,7 +38,35 @@ return {
                 },
                 signature = {
                     enabled = true
-                }
+                },
+                sources = {
+                    cmdline = function()
+                        local type = vim.fn.getcmdtype()
+                        if type == '/' or type == '?' then return { 'buffer' } end
+                        if type == ':' then
+                            local cmdline = vim.fn.getcmdline()
+                            if cmdline:match("^.-!") then
+                                -- Otherwise it will load forever (using WSL).
+                                return {}
+                            end
+                            return { 'cmdline' }
+                        end
+                        return {}
+                    end
+                },
+                completion = {
+                    list = { selection = 'auto_insert' },
+                    menu = {
+                        max_height = 15,
+                        border = 'single',
+                        draw = {
+                            columns = {
+                                { "label",    "label_description", gap = 1 },
+                                { "kind_icon" }
+                            }
+                        }
+                    },
+                },
             })
 
             local capabilities = vim.tbl_deep_extend(
