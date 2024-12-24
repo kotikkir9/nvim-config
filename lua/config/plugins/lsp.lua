@@ -1,3 +1,4 @@
+-- Docs: https://cmp.saghen.dev/
 return {
     {
         "neovim/nvim-lspconfig",
@@ -24,6 +25,7 @@ return {
         },
         config = function()
             local blink = require("blink.cmp")
+            local is_wsl = vim.fn.has("wsl") == 1
 
             blink.setup({
                 keymap = {
@@ -42,12 +44,11 @@ return {
                 sources = {
                     cmdline = function()
                         local type = vim.fn.getcmdtype()
+                        local cmdline = vim.fn.getcmdline()
                         if type == '/' or type == '?' then return { 'buffer' } end
                         if type == ':' then
-                            local cmdline = vim.fn.getcmdline()
-                            if cmdline:match("^.-!") then
-                                -- Otherwise it will load forever (using WSL).
-                                return {}
+                            if is_wsl and cmdline:match("^.-!") then
+                                return {} -- Otherwise it will load forever (using WSL).
                             end
                             return { 'cmdline' }
                         end
