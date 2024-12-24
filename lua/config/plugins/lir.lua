@@ -1,6 +1,6 @@
 return {
     "tamago324/lir.nvim",
-    -- enabled = false,
+    enabled = false,
     dependencies = {
         "nvim-lua/plenary.nvim",
         "kyazdani42/nvim-web-devicons",

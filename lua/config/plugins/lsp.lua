@@ -2,9 +2,14 @@ return {
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            "saghen/blink.cmp",
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "j-hui/fidget.nvim",
+            {
+                "saghen/blink.cmp",
+                dependencies = "rafamadriz/friendly-snippets",
+                version = "*",
+            },
             {
                 "folke/lazydev.nvim",
                 ft = "lua", -- only load on lua files
@@ -18,32 +23,54 @@ return {
             },
         },
         config = function()
-            local capabilities = require('blink.cmp').get_lsp_capabilities()
+            local blink = require("blink.cmp")
 
-            require("lspconfig").lua_ls.setup {
-                capabilities = capabilities
-            }
+            blink.setup({
+                keymap = {
+                    preset = "default",
+                    ["<C-space>"] = { "select_and_accept" },
+                    ['<C-h>'] = { 'show', 'show_documentation', 'hide_documentation' },
 
-            vim.keymap.set("n", "<leader>fd", vim.lsp.buf.format)
-            vim.keymap.set("n", "<M-F>", vim.lsp.buf.format)
-
-            vim.api.nvim_create_autocmd('LspAttach', {
-                callback = function(args)
-                    local client = vim.lsp.get_client_by_id(args.data.client_id)
-                    if not client then return end
-
-                    ---@diagnostic disable-next-line: param-type-mismatch
-                    if client.supports_method('taxtDocument/farmatting', 0) then
-                        -- Format the current buffer on save
-                        vim.api.nvim_create_autocmd('BufWritePre', {
-                            buffer = args.buf,
-                            callback = function()
-                                vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
-                            end,
-                        })
-                    end
-                end,
+                },
+                appearance = {
+                    use_nvim_cmp_as_default = true,
+                    nerd_font_variant = "mono"
+                },
+                signature = {
+                    enabled = true
+                }
             })
+
+            local capabilities = vim.tbl_deep_extend(
+                "force",
+                {},
+                vim.lsp.protocol.make_client_capabilities(),
+                blink.get_lsp_capabilities())
+
+            require("mason").setup({
+                ui = {
+                    icons = {
+                        package_installed = "✓",
+                        package_pending = "➜",
+                        package_uninstalled = "✗"
+                    }
+                }
+            })
+
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "lua_ls",
+                },
+                handlers = {
+                    function(server_name) -- default handler (optional)
+                        require("lspconfig")[server_name].setup {
+                            capabilities = capabilities
+                        }
+                    end,
+                }
+            })
+
+            require("fidget").setup({})
         end,
     }
 }

@@ -32,6 +32,11 @@ return {
             --     return
             -- end
 
+            if #vim.fn.getbufinfo({ buflisted = 1 }) == 0 then
+                print "No buffers found."
+                return
+            end
+
             vim.cmd(command)
         end
 

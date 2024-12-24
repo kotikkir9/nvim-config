@@ -22,7 +22,12 @@ vim.opt.tabstop = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.scrolloff = 8
-vim.opt.colorcolumn = "100"
+-- vim.opt.colorcolumn = "100"
+
+vim.keymap.set("n", "<leader>w", "<cmd>write<CR>")
+
+vim.keymap.set("n", "<leader>fd", vim.lsp.buf.format)
+vim.keymap.set("n", "<M-F>", vim.lsp.buf.format)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -43,12 +48,10 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>")
 vim.keymap.set("n", "<leader>x", ":.lua<CR>")
 vim.keymap.set("v", "<leader>x", ":lua<CR>")
-vim.keymap.set("n", "<leader>ss", "<cmd>write<CR>")
 
 vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
 vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
 vim.keymap.set("i", "jj", "<Esc>")
-
 
 -- vim.api.nvim_set_keymap('i', '"', '""<Left>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('i', "'", "''<Left>", { noremap = true, silent = true })
@@ -72,6 +75,24 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
     callback = function()
         vim.highlight.on_yank()
+    end,
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if not client then return end
+
+        ---@diagnostic disable-next-line: param-type-mismatch
+        if client.supports_method('taxtDocument/farmatting', 0) then
+            -- Format the current buffer on save
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                buffer = args.buf,
+                callback = function()
+                    vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+                end,
+            })
+        end
     end,
 })
 
