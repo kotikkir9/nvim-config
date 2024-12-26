@@ -1,10 +1,6 @@
 require("config.lazy")
 
 -- vim.cmd [[hi @function.builtin.lua guifg=orange]]
-vim.cmd.colorscheme "kanagawa-wave"
--- vim.cmd.colorscheme "kanagawa-dragon"
--- vim.cmd.colorscheme "melange"
--- vim.cmd.colorscheme "gruvbox"
 
 vim.g.mapleader = " "
 vim.g.loaded_netrw = 1
@@ -22,6 +18,7 @@ vim.opt.tabstop = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes:1"
 -- vim.opt.colorcolumn = "100"
 
 vim.keymap.set("n", "<leader>w", "<cmd>write<CR>")
@@ -66,7 +63,7 @@ vim.keymap.set("n", "<space>st", function()
     vim.cmd.term()
     vim.cmd.wincmd("J")
     vim.api.nvim_win_set_height(0, 15)
-    vim.api.nvim_command("startinsert")
+    -- vim.api.nvim_command("startinsert")
     -- vim.cmd("startinsert")
 end)
 

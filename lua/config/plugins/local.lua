@@ -1,6 +1,8 @@
 return {
     {
-        enabled = false,
-        dir = "~/.config/nvim/local/present.nvim"
+        dir = "~/plugins/present.nvim",
+        -- config = function()
+        --     require "present"
+        -- end
     },
 }
