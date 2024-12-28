@@ -2,11 +2,6 @@ require("config.lazy")
 require("config.keymap")
 require("config.autocmd")
 
-vim.cmd.colorscheme "kanagawa-wave"
--- vim.cmd.colorscheme "kanagawa-dragon"
--- vim.cmd.colorscheme "melange"
--- vim.cmd.colorscheme "gruvbox"
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.g.loaded_netrw = 1
