@@ -2,6 +2,12 @@
 
 ## TODO:
 
+- Bind LSP keymaps:
+    - Inspiration: https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L471
+
+- Added those packages:
+    - https://github.com/folke/trouble.nvim
+
 - Try out AI assistant tools:
     - https://github.com/Aider-AI/aider
     - https://github.com/yetone/avante.nvim

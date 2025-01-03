@@ -42,6 +42,8 @@ local buffer_command = function(command)
     vim.cmd(command)
 end
 
+vim.keymap.set("n", "<leader>sd", vim.diagnostic.open_float, { desc = "[Show] [D]iagnostics" })
+
 vim.keymap.set("n", "<leader>n", function() buffer_command("bnext") end)
 vim.keymap.set("n", "<leader>p", function() buffer_command("bprev") end)
 
@@ -60,7 +62,7 @@ vim.keymap.set("n", "<leader>dd", function()
         -- vim.cmd("bd " .. current)
         vim.cmd("bd")
     end
-end)
+end, { desc = "Unload buffer and delete it from the buffer list." })
 
 vim.keymap.set("n", "<space>st", function()
     vim.cmd.vnew()
