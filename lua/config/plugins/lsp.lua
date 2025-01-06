@@ -22,6 +22,14 @@ return {
                     },
                 },
             },
+            {
+                "seblj/roslyn.nvim",
+                dependencies = {
+                    "williamboman/mason.nvim",
+                },
+                ft = "cs",
+                opts = {}
+            },
         },
         config = function()
             local blink = require("blink.cmp")
@@ -30,8 +38,9 @@ return {
             blink.setup({
                 keymap = {
                     preset = "default",
-                    ["<C-space>"] = { "select_and_accept" },
-                    ['<C-h>'] = { 'show', 'show_documentation', 'hide_documentation' },
+                    ["<C-l>"] = { "select_and_accept" },
+                    -- ["<C-space>"] = { "select_and_accept" },
+                    -- ['<C-h>'] = { 'show', 'show_documentation', 'hide_documentation' },
 
                 },
                 appearance = {
@@ -77,6 +86,10 @@ return {
                 blink.get_lsp_capabilities())
 
             require("mason").setup({
+                registries = {
+                    'github:mason-org/mason-registry',
+                    'github:crashdummyy/mason-registry',
+                },
                 ui = {
                     icons = {
                         package_installed = "✓",
