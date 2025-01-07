@@ -2,6 +2,11 @@ require("config.lazy")
 require("config.keymap")
 require("config.autocmd")
 
+if vim.fn.has("win32") == 1 then
+    vim.cmd("language en_US")
+    vim.o.shell = "pwsh"
+end
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.g.loaded_netrw = 1
@@ -20,4 +25,4 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes:1"
--- vim.opt.colorcolumn = "100"
+vim.opt.colorcolumn = "100"

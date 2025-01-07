@@ -33,7 +33,7 @@ return {
         },
         config = function()
             local blink = require("blink.cmp")
-            local is_wsl = vim.fn.has("wsl") == 1
+            local disable_cmp = vim.fn.has("wsl") == 1 or vim.fn.has("win32") == 1
 
             blink.setup({
                 keymap = {
@@ -56,7 +56,7 @@ return {
                         local cmdline = vim.fn.getcmdline()
                         if type == '/' or type == '?' then return { 'buffer' } end
                         if type == ':' then
-                            if is_wsl and cmdline:match("^.-!") then
+                            if disable_cmp and cmdline:match("^.-!") then
                                 return {} -- Otherwise it will load forever (using WSL).
                             end
                             return { 'cmdline' }
