@@ -10,6 +10,7 @@
     - Inspiration: https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L471
 
 - Try out those packages:
+    - https://github.com/folke/which-key.nvim
     - https://github.com/folke/trouble.nvim
     - https://github.com/iabdelkareem/csharp.nvim
     - https://github.com/tris203/rzls.nvim

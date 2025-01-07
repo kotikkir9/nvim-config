@@ -1,7 +1,7 @@
 vim.keymap.set("n", "<leader>w", "<cmd>write<CR>")
 vim.keymap.set("n", "<leader>r", "<cmd>edit<CR>")
 
-vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>F", vim.lsp.buf.format)
 vim.keymap.set("n", "<M-F>", vim.lsp.buf.format)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
