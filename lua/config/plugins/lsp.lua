@@ -16,8 +16,6 @@ return {
                 ft = "lua", -- only load on lua files
                 opts = {
                     library = {
-                        -- See the configuration section for more details
-                        -- Load luvit types when the `vim.uv` word is found
                         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
                     },
                 },
@@ -32,6 +30,39 @@ return {
             },
         },
         config = function()
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = vim.api.nvim_create_augroup('lsp-attach', {}),
+                callback = function(event)
+                    local map = function(keys, func, desc, mode)
+                        mode = mode or 'n'
+                        vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+                    end
+
+                    local builtin = require('telescope.builtin')
+
+                    map('<leader>gd', builtin.lsp_definitions, '[G]oto [D]efinition')
+                    map('<leader>gr', builtin.lsp_references, '[G]oto [R]eferences')
+                    map('<leader>gi', builtin.lsp_implementations, '[G]oto [I]mplementation')
+                    map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+                    map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+                    map('<leader>gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+                    -- Not sure about those:
+                    -- map('<leader>D', builtin.lsp_type_definitions, 'Type [D]efinition')
+                    -- map('<leader>ds', builtin.lsp_document_symbols, '[D]ocument [S]ymbols')
+                    -- map('<leader>ws', builtin.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
+                    local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+                    ---@diagnostic disable-next-line: missing-parameter, param-type-mismatch
+                    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                        map('<leader>th', function()
+                            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+                        end, '[T]oggle Inlay [H]ints')
+                    end
+                end
+            })
+
             local blink = require("blink.cmp")
             local disable_cmp = vim.fn.has("wsl") == 1 or vim.fn.has("win32") == 1
 
