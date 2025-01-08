@@ -65,18 +65,26 @@ return {
 
             local blink = require("blink.cmp")
             local disable_cmp = vim.fn.has("wsl") == 1 or vim.fn.has("win32") == 1
+            local direction_priority = nil
+
+            -- TODO: blink bug on windows.
+            if vim.fn.has("win32") == 1 then
+                direction_priority = {
+                    menu_north = { 's', 'e', 'w', 'n' },
+                    menu_south = { 's', 'e', 'w', 'n' },
+                }
+            end
 
             blink.setup({
                 keymap = {
                     preset = "default",
                     ["<C-l>"] = { "select_and_accept" },
-                    -- ["<C-space>"] = { "select_and_accept" },
-                    -- ['<C-h>'] = { 'show', 'show_documentation', 'hide_documentation' },
-
+                    ["<C-space>"] = { "select_and_accept" },
+                    ['<C-h>'] = { 'show', 'show_documentation', 'hide_documentation' },
                 },
                 appearance = {
                     use_nvim_cmp_as_default = true,
-                    nerd_font_variant = "mono"
+                    nerd_font_variant = "mono",
                 },
                 signature = {
                     enabled = true
@@ -107,6 +115,11 @@ return {
                             }
                         }
                     },
+                    documentation = {
+                        window = {
+                            direction_priority = direction_priority
+                        }
+                    },
                 },
             })
 
@@ -131,8 +144,15 @@ return {
             })
 
             require("mason-lspconfig").setup({
+                automatic_installation = {},
                 ensure_installed = {
                     "lua_ls",
+                    "bashls",
+                    "dockerls",
+                    "html",
+                    "ts_ls",
+                    "svelte",
+                    "tailwindcss",
                 },
                 handlers = {
                     function(server_name) -- default handler (optional)
