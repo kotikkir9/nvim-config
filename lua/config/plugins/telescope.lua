@@ -4,7 +4,10 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         "debugloop/telescope-undo.nvim",
-        { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }
+        {
+            "nvim-telescope/telescope-fzf-native.nvim",
+            build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release"
+        }
     },
     config = function()
         local telescope = require("telescope")

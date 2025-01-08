@@ -5,7 +5,7 @@ require("config.autocmd")
 if vim.fn.has("win32") == 1 then
     vim.cmd("language en_US")
     vim.o.shell = "pwsh"
-    vim.opt.shellslash = true
+    -- vim.opt.shellslash = true
 end
 
 vim.g.mapleader = " "
