@@ -43,7 +43,7 @@ local buffer_command = function(command)
     vim.cmd(command)
 end
 
-vim.keymap.set("n", "<leader>sd", vim.diagnostic.open_float, { desc = "[Show] [D]iagnostics" })
+vim.keymap.set("n", "<leader>D", vim.diagnostic.open_float, { desc = "[D]iagnostics" })
 
 vim.keymap.set("n", "<leader>n", function() buffer_command("bnext") end)
 vim.keymap.set("n", "<leader>p", function() buffer_command("bprev") end)
