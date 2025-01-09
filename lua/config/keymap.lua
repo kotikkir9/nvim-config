@@ -1,6 +1,8 @@
 vim.keymap.set("n", "<leader>w", "<cmd>write<CR>")
 vim.keymap.set("n", "<leader>r", "<cmd>edit<CR>")
 
+vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>")
+
 vim.keymap.set("n", "<leader>F", vim.lsp.buf.format)
 vim.keymap.set("n", "<M-F>", vim.lsp.buf.format)
 
@@ -28,7 +30,7 @@ vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
 vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
 vim.keymap.set("i", "jj", "<Esc>")
 
-vim.keymap.set("n", "<space>tf", "<cmd>PlenaryBustedFile %<CR>")
+-- vim.keymap.set("n", "<space>tf", "<cmd>PlenaryBustedFile %<CR>")
 
 local buffer_command = function(command)
     -- if vim.bo.buftype == "nofile" then
@@ -65,14 +67,14 @@ vim.keymap.set("n", "<leader>dd", function()
     end
 end, { desc = "Unload buffer and delete it from the buffer list." })
 
-vim.keymap.set("n", "<space>st", function()
-    vim.cmd.vnew()
-    vim.cmd.term()
-    vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0, 15)
+-- vim.keymap.set("n", "<leader>st", function()
+--     vim.cmd.vnew()
+--     vim.cmd.term()
+--     vim.cmd.wincmd("J")
+--     vim.api.nvim_win_set_height(0, 15)
     -- vim.api.nvim_command("startinsert")
     -- vim.cmd("startinsert")
-end)
+-- end)
 
 -- vim.api.nvim_set_keymap('i', '"', '""<Left>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('i', "'", "''<Left>", { noremap = true, silent = true })

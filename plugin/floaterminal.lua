@@ -49,6 +49,5 @@ local toggle_teminal = function()
 end
 
 vim.api.nvim_create_user_command("Floaterminal", toggle_teminal, {})
-vim.keymap.set("n", "<leader>tt", toggle_teminal)
-vim.keymap.set("t", "<M-t>", toggle_teminal)
-vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>")
+-- vim.keymap.set("n", "<leader>tt", toggle_teminal)
+-- vim.keymap.set("t", "<M-t>", toggle_teminal)
