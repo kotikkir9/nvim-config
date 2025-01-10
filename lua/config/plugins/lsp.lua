@@ -22,11 +22,8 @@ return {
             },
             {
                 "seblj/roslyn.nvim",
-                dependencies = {
-                    "williamboman/mason.nvim",
-                },
                 ft = "cs",
-                opts = {}
+                -- opts = {}
             },
         },
         config = function()
@@ -148,6 +145,8 @@ return {
                     end,
                 }
             })
+
+            require("roslyn").setup({})
 
             require("fidget").setup({})
         end,
