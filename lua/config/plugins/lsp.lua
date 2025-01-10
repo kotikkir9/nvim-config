@@ -41,11 +41,11 @@ return {
                     local builtin = require('telescope.builtin')
 
                     map('gd', builtin.lsp_definitions, '[G]oto [D]efinition')
-                    map('<leader>gr', builtin.lsp_references, '[G]oto [R]eferences')
+                    map('gr', builtin.lsp_references, '[G]oto [R]eferences')
                     map('gi', builtin.lsp_implementations, '[G]oto [I]mplementation')
+                    map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
                     map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
                     map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
-                    map('<leader>gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
                     -- Not sure about those:
                     -- map('<leader>D', builtin.lsp_type_definitions, 'Type [D]efinition')
@@ -65,15 +65,6 @@ return {
 
             local blink = require("blink.cmp")
             local disable_cmp = vim.fn.has("wsl") == 1 or vim.fn.has("win32") == 1
-            local direction_priority = nil
-
-            -- TODO: blink bug on windows.
-            if vim.fn.has("win32") == 1 then
-                direction_priority = {
-                    menu_north = { 's', 'e', 'w', 'n' },
-                    menu_south = { 's', 'e', 'w', 'n' },
-                }
-            end
 
             blink.setup({
                 keymap = {
@@ -113,11 +104,6 @@ return {
                                 { "label",    "label_description", gap = 1 },
                                 { "kind_icon" }
                             }
-                        }
-                    },
-                    documentation = {
-                        window = {
-                            direction_priority = direction_priority
                         }
                     },
                 },

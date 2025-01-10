@@ -62,8 +62,14 @@ return {
                     --     "/",
                     -- },
                 },
-                oldfiles = {
-                    -- theme = "ivy"
+                lsp_references = {
+                    theme = "ivy"
+                },
+                lsp_definitions = {
+                    theme = "ivy"
+                },
+                lsp_implementations = {
+                    theme = "ivy"
                 },
             },
             extensions = {
