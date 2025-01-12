@@ -2,10 +2,20 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
+        local buffers = 0
         local problems = 0
         local cached_problems = nil
         local timer = nil
         local severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN }
+
+        vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete", }, {
+            callback = function()
+                -- For some reason without `defer_fn` call to `getbufinfo` gets the wrong buffer count.
+                vim.defer_fn(function()
+                    buffers = #vim.fn.getbufinfo({ buflisted = 1 })
+                end, 0)
+            end
+        })
 
         local update_problems_count = function()
             local errors = #vim.diagnostic.get(nil, { severity = severity })
@@ -66,6 +76,13 @@ return {
                     },
                 },
                 lualine_b = {
+                    {
+                        function() return buffers end,
+                        icon = "",
+                        on_click = function()
+                            require("telescope.builtin").buffers()
+                        end
+                    },
                     {
                         function()
                             if problems > 0 then

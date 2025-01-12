@@ -51,7 +51,19 @@ return {
                 },
             },
             pickers = {
+                find_files = {
+                    -- theme = "ivy"
+                    -- find_command = {
+                    --     "rg",
+                    --     "--files",
+                    --     "--glob",
+                    --     "!{.git/*,.svelte-kit/*,target/*,node_modules/*}",
+                    --     "--path-separator",
+                    --     "/",
+                    -- },
+                },
                 buffers = {
+                    initial_mode = "normal",
                     show_all_buffers = true,
                     sort_lastused = true,
                     previewer = false,
@@ -68,27 +80,20 @@ return {
                     },
                 },
                 diagnostics = {
+                    initial_mode = "normal",
                     previewer = false,
                     theme = "ivy",
                 },
-                find_files = {
-                    -- theme = "ivy"
-                    -- find_command = {
-                    --     "rg",
-                    --     "--files",
-                    --     "--glob",
-                    --     "!{.git/*,.svelte-kit/*,target/*,node_modules/*}",
-                    --     "--path-separator",
-                    --     "/",
-                    -- },
-                },
                 lsp_references = {
+                    initial_mode = "normal",
                     theme = "ivy"
                 },
                 lsp_definitions = {
+                    initial_mode = "normal",
                     theme = "ivy"
                 },
                 lsp_implementations = {
+                    initial_mode = "normal",
                     theme = "ivy"
                 },
             },
