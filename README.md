@@ -6,6 +6,10 @@
 
 ## Plugins to try:
 
+- Add:
+    - https://github.com/rmagatti/auto-session
+    - https://github.com/Bekaboo/dropbar.nvim
+
 - Random:
     - https://github.com/folke/which-key.nvim
     - https://github.com/folke/trouble.nvim
