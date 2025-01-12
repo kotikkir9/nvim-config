@@ -51,6 +51,26 @@ return {
                 },
             },
             pickers = {
+                buffers = {
+                    show_all_buffers = true,
+                    sort_lastused = true,
+                    previewer = false,
+                    theme = "dropdown",
+                    mappings = {
+                        i = {
+                            ["<C-d>"] = "delete_buffer",
+                            ["<M-b>"] = actions.close
+                        },
+                        n = {
+                            ["<leader>b"] = actions.close,
+                            ["d"] = "delete_buffer",
+                        }
+                    },
+                },
+                diagnostics = {
+                    previewer = false,
+                    theme = "ivy",
+                },
                 find_files = {
                     -- theme = "ivy"
                     -- find_command = {
@@ -89,6 +109,7 @@ return {
         vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]uzzy [R]esume' })
         vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[F]uzzy [O]ld Files' })
         vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]uzzy [B]uffers' })
+        vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[B]uffers' })
         -- vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[F]uzzy [S]earch [S]elect Telescope' })
 
         vim.keymap.set('n', '<leader>f.', function()

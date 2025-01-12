@@ -4,18 +4,15 @@
 
 - ripgrep
 
-## TODO:
+## Plugins to try:
 
-- Bind LSP keymaps:
-    - Inspiration: https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L471
-
-- Try out those packages:
+- Random:
     - https://github.com/folke/which-key.nvim
     - https://github.com/folke/trouble.nvim
     - https://github.com/iabdelkareem/csharp.nvim
     - https://github.com/tris203/rzls.nvim
 
-- Try out AI assistant tools:
+- AI:
     - https://github.com/Aider-AI/aider
     - https://github.com/yetone/avante.nvim
     - https://github.com/olimorris/codecompanion.nvim

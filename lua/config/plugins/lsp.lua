@@ -92,7 +92,8 @@ return {
                     end
                 },
                 completion = {
-                    list = { selection = 'auto_insert' },
+                    list = {
+                        selection = { preselect = true, auto_insert = true } },
                     menu = {
                         max_height = 15,
                         border = 'single',
@@ -146,8 +147,20 @@ return {
                 }
             })
 
-            require("roslyn").setup({})
+            -- Ensure roslyn is installed.
+            local roslyn_lsp_installed = false
+            for _, server in pairs(require "mason-registry".get_installed_package_names()) do
+                if server == "roslyn" then
+                    roslyn_lsp_installed = true
+                    break
+                end
+            end
 
+            if not roslyn_lsp_installed then
+                vim.cmd("MasonInstall roslyn")
+            end
+
+            require("roslyn").setup({})
             require("fidget").setup({})
         end,
     }

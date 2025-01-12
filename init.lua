@@ -14,9 +14,12 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 vim.o.confirm = true
-
+vim.o.wrap = false
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+
 vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.clipboard = "unnamedplus"
