@@ -1,5 +1,5 @@
-vim.keymap.set("n", "<leader>ww", "<cmd>write<CR>")
-vim.keymap.set("n", "<leader>wa", "<cmd>wall<CR>")
+vim.keymap.set("n", "<leader>w", "<cmd>write<CR>")
+-- vim.keymap.set("n", "<leader>wa", "<cmd>wall<CR>")
 vim.keymap.set("n", "<C-S>", "<cmd>write<CR>")
 vim.keymap.set("i", "<C-S>", "<cmd>write<CR>")
 vim.keymap.set("n", "<M-S>", "<cmd>wall<CR>")

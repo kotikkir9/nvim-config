@@ -15,6 +15,8 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.o.confirm = true
 vim.o.wrap = false
+vim.o.cursorline = true
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = false

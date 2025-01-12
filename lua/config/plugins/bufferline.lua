@@ -24,26 +24,22 @@ return {
     version = "*",
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
-        require("bufferline").setup {
+        local bufferline = require("bufferline")
+        bufferline.setup {
             options = {
                 mode = "buffers",
-                -- mode = "tabs",
-                separator_style = "thick",
-                numbers = "both",
-                indicator = {
-                    -- icon = "| ",
-                    -- style = "icon"
-                },
+                style_preset = bufferline.style_preset.no_italic,
+                -- tab_size = 14,
+                numbers = "buffer_id",
                 diagnostics = "nvim_lsp",
-                diagnostics_indicator = function(_, _, diagnostics_dict, _)
-                    -- local icon = level:match("error") and " " or " "
-                    -- return " " .. icon .. count
-                    local s = " "
-                    for e, n in pairs(diagnostics_dict) do
-                        local sym = e == "error" and " " or (e == "warning" and " " or " ")
-                        s = s .. n .. sym
-                    end
-                    return s
+                offsets = {
+                    text_align = "left",
+                },
+                show_buffer_icons = false,
+                show_buffer_close_icons = false,
+                diagnostics_indicator = function(_, level, _, _)
+                    local icon = level:match("error") and " " or level:match("warning") and " " or ""
+                    return icon
                 end
             }
         }

@@ -3,6 +3,55 @@ return {
         -- dir = "~/plugins/present.nvim",
     },
     {
+        'stevearc/quicker.nvim',
+        event = "FileType qf",
+        config = function()
+            local quicker = require("quicker")
+
+            vim.keymap.set("n", "<leader>q", function() quicker.toggle() end, { desc = "Toggle quickfix", })
+
+            quicker.setup({
+                keys = {
+                    {
+                        ">",
+                        function() quicker.expand({ before = 2, after = 2, add_to_existing = true }) end,
+                        desc = "Expand quickfix context",
+                    },
+                    {
+                        "<",
+                        function() quicker.collapse() end,
+                        desc = "Collapse quickfix context",
+                    },
+                },
+            })
+        end
+    },
+    {
+        "shellRaining/hlchunk.nvim",
+        enabled = false,
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+            require("hlchunk").setup({
+                indent = {
+                    enable = true,
+                    -- use_treesitter = true,
+                },
+                chunk = {
+                    enable = true,
+                    style = "#eff222",
+                    chars = {
+                        horizontal_line = "─",
+                        vertical_line = "│",
+                        left_top = "┌",
+                        left_bottom = "└",
+                        right_arrow = "─",
+                    },
+                    duration = 0
+                },
+            })
+        end
+    },
+    {
         "folke/trouble.nvim",
         enabled = false,
         opts = {},

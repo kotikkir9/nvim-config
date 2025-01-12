@@ -13,12 +13,28 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
-        ---@module "ibl"
-        ---@type ibl.config
-        opts = {},
         config = function()
-            local ibl = require("ibl")
-            ibl.setup {}
+            local hooks = require "ibl.hooks"
+
+            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+                -- vim.api.nvim_set_hl(0, "IblIndent", { fg = "#E06C75" })
+                vim.api.nvim_set_hl(0, "IblScope", { fg = "#E5C07B" })
+            end)
+
+            require("ibl").setup {
+                debounce = 100,
+                indent = {
+                    char = "│"
+                },
+                whitespace = {
+                    remove_blankline_trail = false,
+                },
+                scope = {
+                    enabled = true,
+                    show_start = false,
+                    show_end = false,
+                },
+            }
         end
-    }
+    },
 }

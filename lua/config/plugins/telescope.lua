@@ -75,7 +75,8 @@ return {
                         },
                         n = {
                             ["<leader>b"] = actions.close,
-                            ["d"] = "delete_buffer",
+                            ["q"] = actions.close,
+                            ["dd"] = "delete_buffer",
                         }
                     },
                 },
