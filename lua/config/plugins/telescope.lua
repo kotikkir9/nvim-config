@@ -10,6 +10,15 @@ return {
         }
     },
     config = function()
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = "help",
+            callback = function()
+                if vim.fn.winwidth(0) > 200 then
+                    vim.cmd("wincmd L")
+                end
+            end,
+        })
+
         local telescope = require("telescope")
         local actions = require("telescope.actions")
 
@@ -39,20 +48,50 @@ return {
             return result
         end
 
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = "TelescopeResults",
+            callback = function(ctx)
+                vim.api.nvim_buf_call(ctx.buf, function()
+                    vim.fn.matchadd("TelescopeParent", "\t\t.*$")
+                    vim.api.nvim_set_hl(0, "TelescopeParent", { link = "Comment" })
+                end)
+            end,
+        })
+
+        local function filename_first(_, path)
+            local tail = vim.fs.basename(path)
+            local parent = vim.fs.dirname(path)
+            if parent == "." then return tail end
+            return string.format("%s\t\t%s", tail, parent)
+        end
+
+        local function set_width(percent, min)
+            return function(_, max_columns)
+                return math.max(math.floor(percent * max_columns), min)
+            end
+        end
+
         telescope.setup {
             defaults = {
+                -- path_display = { "smart" },
                 mappings = {
                     i = {
                         ['<cr>'] = select_default,
                     },
                     n = {
                         ['<cr>'] = select_default,
+                        ["q"] = actions.close,
                     }
                 },
             },
             pickers = {
                 find_files = {
-                    -- theme = "ivy"
+                    path_display = filename_first,
+                    -- path_display = {
+                    --     filename_first = {
+                    --         reverse_directories = false,
+                    --     },
+                    -- },
                     -- find_command = {
                     --     "rg",
                     --     "--files",
@@ -63,45 +102,51 @@ return {
                     -- },
                 },
                 buffers = {
+                    theme = "dropdown",
                     initial_mode = "normal",
                     show_all_buffers = true,
                     sort_lastused = true,
                     previewer = false,
-                    theme = "dropdown",
                     mappings = {
-                        i = {
-                            ["<C-d>"] = "delete_buffer",
-                            ["<M-b>"] = actions.close
-                        },
                         n = {
                             ["<leader>b"] = actions.close,
-                            ["q"] = actions.close,
                             ["dd"] = "delete_buffer",
                         }
                     },
+                    layout_config = {
+                        width = set_width(.6, 120),
+                    }
                 },
                 oldfiles = {
+                    -- path_display = filenameFirst,
+                    theme = "dropdown",
                     initial_mode = "normal",
                     sort_lastused = true,
                     previewer = false,
-                    theme = "dropdown",
+                    layout_config = {
+                        width = set_width(.6, 120)
+                    }
                 },
                 diagnostics = {
+                    theme = "ivy",
+                    path_display = filename_first,
                     initial_mode = "normal",
                     previewer = false,
-                    theme = "ivy",
                 },
                 lsp_references = {
+                    path_display = { "tail" },
                     initial_mode = "normal",
                     theme = "ivy"
                 },
                 lsp_definitions = {
+                    theme = "ivy",
+                    path_display = { "tail" },
                     initial_mode = "normal",
-                    theme = "ivy"
                 },
                 lsp_implementations = {
+                    theme = "ivy",
+                    path_display = { "tail" },
                     initial_mode = "normal",
-                    theme = "ivy"
                 },
             },
             extensions = {
@@ -119,14 +164,19 @@ return {
         vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]uzzy [F]iles' })
         vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]uzzy [D]iagnostics' })
         vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]uzzy [R]esume' })
-        vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[F]uzzy [O]ld Files' })
         vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]uzzy [B]uffers' })
+        vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[F]uzzy [O]ld Files' })
+        vim.keymap.set('n', '<leader>fs', builtin.grep_string, { desc = '[F]uzzy Grip [S]tring ' })
         vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[B]uffers' })
+
         -- vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[F]uzzy [S]earch [S]elect Telescope' })
 
         vim.keymap.set('n', '<leader>f.', function()
             -- You can pass additional configuration to Telescope to change the theme, layout, etc.
             builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+                layout_config = {
+                    width = set_width(0.6, 120)
+                },
                 winblend = 10,
                 previewer = false,
             })

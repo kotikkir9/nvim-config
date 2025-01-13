@@ -6,6 +6,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "help",
+    callback = function()
+        if vim.fn.winwidth(0) > 200 then
+            vim.cmd("wincmd L")
+        end
+    end,
+})
+
 -- vim.api.nvim_create_autocmd('LspAttach', {
 --     group = vim.api.nvim_create_augroup('lsp-attach-format-on-save', {}),
 --     callback = function(args)
