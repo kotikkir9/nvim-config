@@ -1,6 +1,7 @@
 require("config.lazy")
 require("config.keymap")
 require("config.autocmd")
+require("config.filetype")
 
 if vim.fn.has("win32") == 1 then
     vim.cmd("language en_US")

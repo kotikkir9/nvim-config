@@ -3,6 +3,20 @@ return {
         -- dir = "~/plugins/present.nvim",
     },
     {
+        'mistweaverco/kulala.nvim',
+        opts = {
+            default_view = "headers_body",
+            icons = {
+                inlay = {
+                    loading = "󱦟",
+                    done = "",
+                    error = "",
+                },
+                lualine = "🐼",
+            },
+        }
+    },
+    {
         'stevearc/quicker.nvim',
         event = "FileType qf",
         config = function()

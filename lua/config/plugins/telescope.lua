@@ -80,6 +80,12 @@ return {
                         }
                     },
                 },
+                oldfiles = {
+                    initial_mode = "normal",
+                    sort_lastused = true,
+                    previewer = false,
+                    theme = "dropdown",
+                },
                 diagnostics = {
                     initial_mode = "normal",
                     previewer = false,
