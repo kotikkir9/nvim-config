@@ -3,6 +3,22 @@ return {
         -- dir = "~/plugins/present.nvim",
     },
     {
+        'rmagatti/auto-session',
+        lazy = false,
+        keys = {
+            -- Will use Telescope if installed or a vim.ui.select picker otherwise
+            { '<leader>ss', '<cmd>SessionSearch<CR>',         desc = 'Session search' },
+            { '<leader>sw', '<cmd>SessionSave<CR>',           desc = 'Save session' },
+            { '<leader>sa', '<cmd>SessionToggleAutoSave<CR>', desc = 'Toggle autosave' },
+        },
+        ---@module "auto-session"
+        ---@type AutoSession.Config
+        opts = {
+            suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+            -- log_level = 'debug',
+        }
+    },
+    {
         'mistweaverco/kulala.nvim',
         opts = {
             default_view = "headers_body",
