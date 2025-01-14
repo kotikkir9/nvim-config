@@ -2,11 +2,17 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
+        local auto_session_lib = require("auto-session.lib")
+        local auto_session_enabled = false
         local buffers = 0
         local problems = 0
         local cached_problems = nil
         local timer = nil
         local severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN }
+
+        vim.api.nvim_create_user_command("StatuslineSession", function()
+            auto_session_enabled = not auto_session_enabled
+        end, {})
 
         vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete", }, {
             callback = function()
@@ -77,6 +83,15 @@ return {
                 },
                 lualine_b = {
                     {
+                        function()
+                            if auto_session_enabled then
+                                return auto_session_lib.current_session_name(true)
+                            else
+                                return ""
+                            end
+                        end
+                    },
+                    {
                         function() return buffers end,
                         icon = "",
                         on_click = function()
@@ -104,7 +119,7 @@ return {
                         end
                     },
                     'branch',
-                    'diff'
+                    'diff',
                 },
                 lualine_c = {
                     {
