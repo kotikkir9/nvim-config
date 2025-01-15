@@ -28,11 +28,13 @@ vim.api.nvim_create_autocmd("MenuPopup", {
             ]]
         end
 
-        local urls = require("vim.ui")._get_urls()
-        if vim.startswith(urls[1], "http") then
-            vim.cmd [[
+        local success, urls = pcall(require("vim.ui")._get_urls)
+        if success then
+            if vim.startswith(urls[1], "http") then
+                vim.cmd [[
                 amenu enable PopUp.URL
             ]]
+            end
         end
     end,
 })
